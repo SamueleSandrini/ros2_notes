@@ -117,5 +117,8 @@ fi
 In such a way to call this reset_ros_config.sh every time you reboot you notebook:
 ```
 crontab -e
+```
+copy and paste this:
+```
 @reboot ~/reset_ros_config.sh
 ```
