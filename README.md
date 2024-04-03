@@ -192,3 +192,8 @@ Add backward_ros to your CMakeLists.txt:
 find_package(backward_ros REQUIRED)
 ```
 
+Basic debug: 
+```
+set(CMAKE_BUILD_TYPE Debug)
+```
+
