@@ -180,3 +180,15 @@ Pylint is a static code analysis tool for the Python programming language.
 colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
 alias mcc=$(find . -iname "compile_commands.json" | xargs jq -s 'map(.[])' > compile_commands.json)
 
+## Debug tips:
+[Backward ROS](https://github.com/pal-robotics/backward_ros):
+Add backward_ros to your package.xml:
+```
+<depend>backward_ros</depend>
+```
+
+Add backward_ros to your CMakeLists.txt:
+```
+find_package(backward_ros REQUIRED)
+```
+
