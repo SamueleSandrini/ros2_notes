@@ -119,6 +119,64 @@ In such a way to call this reset_ros_config.sh every time you reboot you noteboo
 crontab -e
 ```
 copy and paste this:
+
+
 ```
 @reboot ~/reset_ros_config.sh
 ```
+
+## Kill ROS Deamons
+```
+ps aux | grep ros2 	# To check ros2-deamons 
+pkill -9 -f ros2 	# To kill them
+```
+
+
+## Robots Communications
+ROS2 works on UDP and DDS, Fast DDS or Cyclone dds. Tiago use Cyclon DDS. 
+Usefull commands are:
+```
+sudo apt install ros-rolling-rmw-cyclonedds-cpp
+export RMW_IMPLEMENTATION=rmw_fastrtps_cpp
+```
+
+## Docker TIPS
+To run Docker with display abilities (This for Intel): 
+```
+docker run -it \
+    --volume=/tmp/.X11-unix:/tmp/.X11-unix \
+    --device=/dev/dri:/dev/dri \
+    --env="DISPLAY=$DISPLAY" \
+    osrf/ros:noetic-desktop-full (image name)
+```
+If you want to enable others Graphics Accelerator as Nvidia follow this [link](http://wiki.ros.org/action/login/docker/Tutorials/Hardware%20Acceleration#nvidia-docker2).
+
+## rqt_image_view
+```
+sudo apt install ros-humble-rqt-image-view
+```
+
+## Debug
+Or: 
+```
+build/plansys2_executor/test/unit/executor_test
+```
+
+Or run with gdb:
+```
+gdb build/plansys2_executor/test/unit/executor_test
+```
+then "run".
+
+## Fix uncrustify issue:
+ament_uncrustify path --reformat
+
+## Flake8 & PyLint
+Flake8 is a command-line utility for enforcing style consistency across Python projects.
+Pylint is a static code analysis tool for the Python programming language.
+
+
+## Tips for compilation command (vscode autoc.):
+colcon build --symlink-install --cmake-args -DCMAKE_EXPORT_COMPILE_COMMANDS=ON
+alias mcc=$(find . -iname "compile_commands.json" | xargs jq -s 'map(.[])' > compile_commands.json)
+
