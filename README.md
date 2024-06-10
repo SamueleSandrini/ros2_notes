@@ -196,4 +196,18 @@ Basic debug:
 ```
 set(CMAKE_BUILD_TYPE Debug)
 ```
+## Turtlebot4
 
+Commands to put into .bashrc to run at startup lidar and tf static broadcaster `base_link` -> `lidar`:
+
+```
+# This portion is for launch lidar & static publisher just as sourced this bashrc the first time.
+# Lockfile is created in such a way to check if it is already created in that case that launches are not called.
+LOCKFILE="/tmp/.ros2_launch_lock"
+if [ ! -f "$LOCKFILE" ]; then
+    echo "Calling startup launches for lidar and tf static base_link -> laser"
+    touch "$LOCKFILE"
+    ros2 launch rplidar_ros rplidar_s2_launch.py ns:=$NAMESPACE
+    ros2 run tf2_ros static_transform_publisher 0 0 0.1 3.14 0 0 base_link laser --ros-args -r /tf_static:=/$NAMESPACE/tf_static
+fi
+```
